@@ -893,24 +893,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mokut\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Eloua\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mokut\\source\\repos\\ProjetCS\\Raminagrobis.DAL\\Raminagrobis.DAL.csproj",
+      "projectUniqueName": "C:\\Users\\Eloua\\code\\ProjetCS\\Raminagrobis.DAL\\Raminagrobis.DAL.csproj",
       "projectName": "Raminagrobis.DAL",
-      "projectPath": "C:\\Users\\mokut\\source\\repos\\ProjetCS\\Raminagrobis.DAL\\Raminagrobis.DAL.csproj",
-      "packagesPath": "C:\\Users\\mokut\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mokut\\source\\repos\\ProjetCS\\Raminagrobis.DAL\\obj\\",
+      "projectPath": "C:\\Users\\Eloua\\code\\ProjetCS\\Raminagrobis.DAL\\Raminagrobis.DAL.csproj",
+      "packagesPath": "C:\\Users\\Eloua\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Eloua\\code\\ProjetCS\\Raminagrobis.DAL\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\mokut\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Eloua\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
