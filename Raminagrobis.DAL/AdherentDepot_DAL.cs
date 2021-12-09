@@ -39,13 +39,13 @@ namespace Raminagrobis.DAL
                 var a = new Adherent_DAL(
                     reader.GetInt32(0),
                     reader.GetString(1),
-                    reader.GetInt32(2),
+                    reader.GetBoolean(2),
                     reader.GetString(3),
                     reader.GetString(4),
                     reader.GetString(5),
                     reader.GetString(6),
                     reader.GetDateTime(7),
-                    reader.GetInt32(8)
+                    reader.GetBoolean(8)
                     );
 
                 listeAdherents.Add(a);
@@ -72,13 +72,13 @@ namespace Raminagrobis.DAL
                 a = new Adherent_DAL(
                     reader.GetInt32(0),
                     reader.GetString(1),
-                    reader.GetInt32(2),
+                    reader.GetBoolean(2),
                     reader.GetString(3),
                     reader.GetString(4),
                     reader.GetString(5),
                     reader.GetString(6),
                     reader.GetDateTime(7),
-                    reader.GetInt32(8)
+                    reader.GetBoolean(8)
                     );
             }
             else

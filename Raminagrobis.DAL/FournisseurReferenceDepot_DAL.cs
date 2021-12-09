@@ -54,7 +54,7 @@ namespace Raminagrobis.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select id, societe, civilite, nom, prenom, email, adresse, dateAdhesion, desactive from adherents where ID=@ID";
+            commande.CommandText = "select id_fournisseur, id_reference from fournisseurs_references where ID=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", ID));
             var reader = commande.ExecuteReader();
 

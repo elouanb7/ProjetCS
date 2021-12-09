@@ -12,11 +12,11 @@ namespace Raminagrobis
         public string ReferenceName { get; set; }
         public string Libelle { get; set; }
         public string Marque { get; set; }
-        public int Desactive { get; set; }
+        public bool Desactive { get; set; }
 
-        public Reference(string referenceName, string libelle, string marque, int desactive)
+        public Reference(string referenceName, string libelle, string marque, bool desactive)
             => (ReferenceName, Libelle, Marque, Desactive) = (ReferenceName, libelle, marque, desactive);
-        public Reference(int id, string referenceName, string libelle, string marque, int desactive)
+        public Reference(int id, string referenceName, string libelle, string marque, bool desactive)
             => (ID, ReferenceName, Libelle, Marque, Desactive) = (id, ReferenceName, libelle, marque, desactive);
     }
 }

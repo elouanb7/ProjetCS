@@ -4,10 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjetCS", "ProjetCS\ProjetCS.csproj", "{247A7C56-DA85-4209-8213-E95689217757}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FDE61EC5-9854-475E-B882-FDB17A29EB19} = {FDE61EC5-9854-475E-B882-FDB17A29EB19}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raminagrobis.DAL", "Raminagrobis.DAL\Raminagrobis.DAL.csproj", "{DE2FDFDE-64AF-4F86-8226-D42015E6E32B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raminagrobis", "raminagrobis\Raminagrobis.csproj", "{FDE61EC5-9854-475E-B882-FDB17A29EB19}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DE2FDFDE-64AF-4F86-8226-D42015E6E32B} = {DE2FDFDE-64AF-4F86-8226-D42015E6E32B}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

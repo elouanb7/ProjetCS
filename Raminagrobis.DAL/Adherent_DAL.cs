@@ -10,18 +10,18 @@ namespace Raminagrobis.DAL
     {
         public int ID { get; set; }
         public string Societe { get; set; }
-        public int Civilite { get; set; }
+        public bool Civilite { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public string Email { get; set; }
         public string Adresse { get; set; }
         public DateTime DateAdhesion { get; set; }
-        public int Desactive { get; set; }
+        public bool Desactive { get; set; }
 
-        public Adherent_DAL(string societe, int civilite, string nom, string prenom, string mail, string adresse, DateTime dateAdhesion, int desactive)
+        public Adherent_DAL(string societe, bool civilite, string nom, string prenom, string mail, string adresse, DateTime dateAdhesion, bool desactive)
             => (Societe, Civilite, Nom, Prenom, Email, Adresse, DateAdhesion, Desactive) = (societe, civilite, nom, prenom, mail, adresse, dateAdhesion, desactive);
 
-        public Adherent_DAL(int id, string societe, int civilite, string nom, string prenom, string mail, string adresse, DateTime dateAdhesion, int desactive)
+        public Adherent_DAL(int id, string societe, bool civilite, string nom, string prenom, string mail, string adresse, DateTime dateAdhesion, bool desactive)
             => (ID, Societe, Civilite, Nom, Prenom, Email, Adresse, DateAdhesion, Desactive) = (id, societe, civilite, nom, prenom, mail, adresse, dateAdhesion, desactive);
 
     }
