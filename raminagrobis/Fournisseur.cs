@@ -38,7 +38,7 @@ namespace Raminagrobis
         /// <summary>
         /// Mail du fournisseur
         /// </summary>
-        public string Mail { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Adresse du fournisseur
@@ -54,6 +54,9 @@ namespace Raminagrobis
 
         #region Constructeur
 
+        public Fournisseur(string societe, bool civilite, string nom, string prenom, string email, string adresse, bool desactive)
+        => (Societe, Civilite, Nom, Prenom, Email, Adresse, Desactive) = (societe, civilite, nom, prenom, email, adresse, desactive);
+
         /// <summary>
         /// Construit un fournisseur
         /// </summary>
@@ -66,7 +69,7 @@ namespace Raminagrobis
         /// <param name="adresse">Adresse du fournisseur (Adresse)</param>
         /// <param name="desactive">Booléen informant de l'état du fournisseur (Desactive)</param>
         public Fournisseur(int id, string societe, bool civilite, string nom, string prenom, string mail, string adresse, bool desactive)
-        => (ID, Societe, Civilite, Nom, Prenom, Mail, Adresse, Desactive) = (id, societe, civilite, nom, prenom, mail, adresse, desactive);
+        => (ID, Societe, Civilite, Nom, Prenom, Email, Adresse, Desactive) = (id, societe, civilite, nom, prenom, mail, adresse, desactive);
 
         #endregion
 
@@ -74,7 +77,7 @@ namespace Raminagrobis
 
         public override string ToString()
         {
-            return $"({ID}; {Societe}; {Civilite}; {Nom}; {Prenom}; {Mail}; {Adresse}; {Desactive})";
+            return $"({ID}; {Societe}; {Civilite}; {Nom}; {Prenom}; {Email}; {Adresse}; {Desactive})";
         }
         
 

@@ -38,7 +38,7 @@ namespace Raminagrobis
         /// <summary>
         /// Mail de l'adherent
         /// </summary>
-        public string Mail { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Adresse de l'adherent
@@ -50,9 +50,17 @@ namespace Raminagrobis
         /// </summary>
         public bool Desactive { get; set; }
 
+        /// <summary>
+        ///  Date d'adhésion
+        /// </summary>
+        public DateTime DateAdhesion { get; set; }
+
         #endregion
 
         #region Constructeur
+
+        public Adherent(string societe, bool civilite, string nom, string prenom, string email, string adresse, bool desactive, DateTime dateAdhesion)
+        => (Societe, Civilite, Nom, Prenom, Email, Adresse, Desactive, DateAdhesion) = (societe, civilite, nom, prenom, email, adresse, desactive, dateAdhesion);
 
         /// <summary>
         /// Construit un adherent
@@ -65,8 +73,9 @@ namespace Raminagrobis
         /// <param name="mail">Mail de l'adherent (Mail)</param>
         /// <param name="adresse">Adresse de l'adherent (Adresse)</param>
         /// <param name="desactive">Booléen informant de l'état de l'adherent (Desactive)</param>
-        public Adherent(int id, string societe, bool civilite, string nom, string prenom, string mail, string adresse, bool desactive)
-        => (ID, Societe, Civilite, Nom, Prenom, Mail, Adresse, Desactive) = (id, societe, civilite, nom, prenom, mail, adresse, desactive);
+        /// <param name="dateAdhesion">Date d'adhésion</param>
+        public Adherent(int id, string societe, bool civilite, string nom, string prenom, string email, string adresse, bool desactive, DateTime dateAdhesion)
+        => (ID, Societe, Civilite, Nom, Prenom, Email, Adresse, Desactive, DateAdhesion) = (id, societe, civilite, nom, prenom, email, adresse, desactive, dateAdhesion);
 
         #endregion
 
@@ -74,7 +83,7 @@ namespace Raminagrobis
 
         public override string ToString()
         {
-            return $"({ID}; {Societe}; {Civilite}; {Nom}; {Prenom}; {Mail}; {Adresse}; {Desactive})";
+            return $"({ID}; {Societe}; {Civilite}; {Nom}; {Prenom}; {Email}; {Adresse}; {Desactive}; {DateAdhesion})";
         }
         #endregion
 

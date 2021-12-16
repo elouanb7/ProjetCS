@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Raminagrobis;
+using System;
+using System.Collections.Generic;
 
 namespace ProjetCS
 {
@@ -6,7 +8,10 @@ namespace ProjetCS
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var service = new FournisseurService();
+            var test = service.GetAll();
+            var str = string.Join(",", test);
+            Console.WriteLine($"Fournisseur : {str}");
         }
     }
 }
