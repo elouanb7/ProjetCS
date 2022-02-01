@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Raminagrobis
 {
-    class Adherent
+    public class Adherent
     {
         #region champs et accesseurs
 
