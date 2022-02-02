@@ -18,4 +18,6 @@ namespace Raminagrobis.DTO
         public DateTime DateAdhesion { get; set; }
         public bool Desactive { get; set; }
     }
+
+
 }

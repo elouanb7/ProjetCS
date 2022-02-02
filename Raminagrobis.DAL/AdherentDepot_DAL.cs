@@ -29,7 +29,7 @@ namespace Raminagrobis.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select id, societe, civilite, nom, prenom, email, adresse, dateAdhesion, desactive from adherents";
+            commande.CommandText = "select id, societe, civilite, nom, prenom, email, adresse, date_adhesion, desactive from adherents";
             var reader = commande.ExecuteReader();
 
             var listeAdherents = new List<Adherent_DAL>();
@@ -60,7 +60,7 @@ namespace Raminagrobis.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select id, societe, civilite, nom, prenom, email, adresse, dateAdhesion, desactive from adherents where ID=@ID";
+            commande.CommandText = "select id, societe, civilite, nom, prenom, email, adresse, date_adhesion, desactive from adherents where ID=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", ID));
             var reader = commande.ExecuteReader();
 
@@ -93,7 +93,7 @@ namespace Raminagrobis.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "insert into adherents(societe, civilite, nom, prenom, email, adresse, dateAdhesion)"
+            commande.CommandText = "insert into adherents(societe, civilite, nom, prenom, email, adresse, date_adhesion)"
                                     + " values (@societe, @civilite, @nom, @prenom, @email, @adresse, @dateAdhesion); select scope_identity()";
             commande.Parameters.Add(new SqlParameter("@societe", a.Societe));
             commande.Parameters.Add(new SqlParameter("@civilite", a.Civilite));
@@ -116,7 +116,7 @@ namespace Raminagrobis.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update adherents set societe=@societe, civilite=@civilite, nom=@nom, prenom=@prenom, email=@email, adresse=@adresse, dateAdhesion=@dateAdhesion)"
+            commande.CommandText = "update adherents set societe=@societe, civilite=@civilite, nom=@nom, prenom=@prenom, email=@email, adresse=@adresse, date_adhesion=@dateAdhesion)"
                                     + " where ID=@id";
             commande.Parameters.Add(new SqlParameter("@id", a.ID));
             commande.Parameters.Add(new SqlParameter("@societe", a.Societe));
