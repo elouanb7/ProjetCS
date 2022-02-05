@@ -66,6 +66,33 @@ namespace Raminagrobis.DAL
             return p;
         }
 
+        public PanierGlobalDetails_DAL GetByPanierGlobalID(int ID)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select id, id_panier_global, id_reference, quantite from panier_global_details where id_panier_global=@id_panier_global";
+            commande.Parameters.Add(new SqlParameter("@id_panier_global", ID));
+            var reader = commande.ExecuteReader();
+
+            PanierGlobalDetails_DAL p;
+            if (reader.Read())
+            {
+                p = new PanierGlobalDetails_DAL(
+                    reader.GetInt32(0),
+                    reader.GetInt32(1),
+                    reader.GetInt32(2),
+                    reader.GetInt32(3)
+                    );
+            }
+            else
+                throw new Exception($"Pas de details de panier global dans la BDD avec l'id_panier_global {ID}");
+
+            DetruireConnexionEtCommande();
+
+            return p;
+
+        }
+
         public override PanierGlobalDetails_DAL Insert(PanierGlobalDetails_DAL p)
         {
             CreerConnexionEtCommande();

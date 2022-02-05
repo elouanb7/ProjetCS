@@ -63,8 +63,6 @@ namespace Raminagrobis.DAL
             commande.Parameters.Add(new SqlParameter("@ID", ID));
             var reader = commande.ExecuteReader();
 
-            var listeDePoints = new List<Adherent_DAL>();
-
             Fournisseur_DAL f;
             if (reader.Read())
             {
