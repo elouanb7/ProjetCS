@@ -12,7 +12,7 @@ namespace Raminagrobis
         public int IDReference { get; private set; }
         public int Quantite { get; private set; }
 
-        ListeAchatDetails(int idListeAchat, int idReference, int quantite) => (IDListeAchat, IDReference, Quantite) = (idListeAchat, idReference, quantite);
+        public ListeAchatDetails(int idListeAchat, int idReference, int quantite) => (IDListeAchat, IDReference, Quantite) = (idListeAchat, idReference, quantite);
 
     }
 }
