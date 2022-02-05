@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Raminagrobis.DTO
 {
-    class Reference_DTO
+    public class Reference_DTO
     {
+        public int ID { get; set; }
+        public string ReferenceName { get; set; }
+        public string Libelle { get; set; }
+        public string Marque { get; set; }
+        public bool Desactive { get; set; }
     }
 }
