@@ -28,18 +28,20 @@ namespace Raminagrobis.Services
             return new PanierGlobalDetails(pg.ID, pg.IDPanierGlobal_DAL, pg.IDReference_DAL, pg.Quantite);
         }
 
-        public PanierGlobalDetails GetByPanierGlobalID(int ID)
+        public List<PanierGlobalDetails> GetByPanierGlobalID(int ID)
         {
-            var pg = depot.GetByID(ID);
+            var pg = depot.GetByID1(ID)
+                .Select(p => new PanierGlobalDetails(p.ID, p.IDPanierGlobal_DAL, p.IDReference_DAL, p.Quantite))
+                    .ToList();
 
-            return new PanierGlobalDetails(pg.ID, pg.IDPanierGlobal_DAL, pg.IDReference_DAL, pg.Quantite);
+            return pg;
         }
 
         public PanierGlobalDetails Insert(PanierGlobalDetails pg)
         {
             var panierg = new PanierGlobalDetails_DAL(pg.IDPanierGlobal, pg.IDReference, pg.Quantite);
-            depot.Insert(panierg);
-            panierg.ID = pg.ID;
+            panierg = depot.Insert(panierg);
+            pg.ID = panierg.ID;
 
             return pg;
         }

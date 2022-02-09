@@ -1,0 +1,24 @@
+﻿<Page x:Class="Raminagrobis.WPF.pages.ListeAchatPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Raminagrobis.WPF.pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ListeAchatPage">
+
+    <Grid x:Name="ListeAchatMain" Background="White">
+        <Menu Margin="0,0,0,425" VerticalAlignment="Top">
+            <Button x:Name="btn_get_all" Content="Voir tout" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Btn_get_all_Click" Height="20" Width="75"/>
+            <Button x:Name="btn_see_details" Content="Details" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Btn_see_details_Click" Height="20" Width="75"/>
+            <Button x:Name="btn_insert" Content="Insérer" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Btn_insert_Click" Height="20" Width="75"/>
+        </Menu>
+        <DataGrid x:Name="liste_achat" Margin="0,25,0,0" SelectionChanged="liste_achat_SelectionChanged"/>
+        <DataGrid x:Name="liste_details" Margin="0,25,0,0"/>
+        <Grid x:Name="insert_liste" Margin="0,25,0,0">
+            <Button x:Name="btn_SelectCSV" Content="Selectionner un fichier" HorizontalAlignment="Center" Margin="0,212,0,0" VerticalAlignment="Top" Height="50" FontSize="16" Width="170" Click="btn_SelectCSV_Click"/>
+        </Grid>
+
+    </Grid>
+</Page>

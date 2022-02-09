@@ -10,7 +10,7 @@ namespace Raminagrobis.DTO
     {
         public int ID { get; set; }
         public int IDAdherent { get; set; }
-        public string Semaine { get; set; }
+        public int Semaine { get; set; }
         public ListeAchatDetails_DTO[] details { get; set; }
     }
 }

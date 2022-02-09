@@ -41,9 +41,9 @@ namespace Raminagrobis
         public Fournisseur Insert(Fournisseur f)
         {
             var fournisseur = new Fournisseur_DAL(f.Societe, f.Civilite, f.Nom, f.Prenom, f.Email, f.Adresse, f.Desactive);
-            depot.Insert(fournisseur);
+            fournisseur = depot.Insert(fournisseur);
 
-            fournisseur.ID = f.ID;
+            f.ID = fournisseur.ID;
 
             return f;
         }
@@ -60,6 +60,13 @@ namespace Raminagrobis
         {
             var fournisseur = new Fournisseur_DAL(f.ID, f.Societe, f.Civilite, f.Nom, f.Prenom, f.Email, f.Adresse, f.Desactive);
             depot.Delete(fournisseur);
+        }
+
+        public Fournisseur GetBySociete(string societe)
+        {
+            var f = depot.GetByName(societe);
+
+            return new Fournisseur(f.ID, f.Societe, f.Civilite, f.Nom, f.Prenom, f.Email, f.Adresse, f.Desactive);
         }
     }
 }

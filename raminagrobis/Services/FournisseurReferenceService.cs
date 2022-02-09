@@ -10,7 +10,7 @@ namespace Raminagrobis
 {
     public class FournisseurReferenceService : IFournisseurReferenceService
     {
-        private FournisseurReferenceDepot_DAL depot = new FournisseurReferenceDepot_DAL();
+        private FournisseurReferenceDepot_DAL depot = new();
 
         public List<FournisseurReference> GetAll()
         {
@@ -20,6 +20,24 @@ namespace Raminagrobis
                     .ToList();
 
             return frs;
+        }
+
+        public List<FournisseurReference> GetByFournisseurID(int fournisseurID)
+        {
+            var f = depot.GetByID1(fournisseurID)
+                .Select(ld => new FournisseurReference(ld.IDFournisseur_DAL, ld.IDReference_DAL))
+                    .ToList();
+
+            return f;
+        }
+
+        public List<FournisseurReference> GetByReferenceID(int referenceID)
+        {
+            var f = depot.GetByID2(referenceID)
+                .Select(ld => new FournisseurReference(ld.IDFournisseur_DAL, ld.IDReference_DAL))
+                    .ToList();
+
+            return f;
         }
 
         public FournisseurReference GetLinkByID(int fournisseurID, int referenceID)
@@ -32,7 +50,7 @@ namespace Raminagrobis
         public FournisseurReference Insert(FournisseurReference f)
         {
             var fr = new FournisseurReference_DAL(f.IDFournisseur, f.IDReference);
-            depot.Insert(fr);
+            fr = depot.Insert(fr);
 
             return f;
         }

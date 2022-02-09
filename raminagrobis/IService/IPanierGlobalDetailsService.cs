@@ -10,7 +10,7 @@ namespace Raminagrobis.IService
     {
         public List<PanierGlobalDetails> GetAll();
         public PanierGlobalDetails GetByID(int ID);
-        public PanierGlobalDetails GetByPanierGlobalID(int ID);
+        public List<PanierGlobalDetails> GetByPanierGlobalID(int ID);
         public PanierGlobalDetails Insert(PanierGlobalDetails pg);
     }
 }

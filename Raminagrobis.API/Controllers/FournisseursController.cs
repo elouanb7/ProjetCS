@@ -19,7 +19,7 @@ namespace Raminagrobis.API.Controllers
             service = srv;
         }
 
-        [HttpGet("all")]
+        [HttpGet("allFournisseurs")]
         public IEnumerable<Fournisseur_DTO> GetAllFournisseurs()
         {
             return service.GetAll().Select(f => new Fournisseur_DTO()
@@ -35,10 +35,10 @@ namespace Raminagrobis.API.Controllers
             });
         }
 
-        [HttpGet("{id}")]
-        public Fournisseur_DTO GetFournisseurByID([FromRoute] int id)
+        [HttpGet("{idFournisseur}")]
+        public Fournisseur_DTO GetFournisseurByID([FromRoute] int idFournisseur)
         {
-            var f = service.GetByID(id);
+            var f = service.GetByID(idFournisseur);
 
             return new Fournisseur_DTO()
             {
@@ -53,7 +53,25 @@ namespace Raminagrobis.API.Controllers
             };
         }
 
-        [HttpGet("actif")]
+        [HttpGet("societeFournisseur")]
+        public Fournisseur_DTO GetFournisseurBySociete([FromBody] string societeFournisseur)
+        {
+            var f = service.GetBySociete(societeFournisseur);
+
+            return new Fournisseur_DTO()
+            {
+                ID = f.ID,
+                Societe = f.Societe,
+                Civilite = f.Civilite,
+                Nom = f.Nom,
+                Prenom = f.Prenom,
+                Email = f.Email,
+                Adresse = f.Adresse,
+                Desactive = f.Desactive
+            };
+        }
+
+        [HttpGet("fournisseurActif")]
         public IEnumerable<Fournisseur_DTO> GetAllFournisseursActif()
         {
             return service.GetAllActif().Select(f => new Fournisseur_DTO()
@@ -70,7 +88,7 @@ namespace Raminagrobis.API.Controllers
         }
 
         [HttpPost]
-        public Fournisseur_DTO Insert(Fournisseur_DTO f)
+        public Fournisseur_DTO InsertFournisseur(Fournisseur_DTO f)
         {
             var f_metier = service.Insert(new Fournisseur(f.Societe, f.Civilite, f.Nom, f.Prenom, f.Email, f.Adresse, f.Desactive));
 
@@ -80,7 +98,7 @@ namespace Raminagrobis.API.Controllers
         }
 
         [HttpPut]
-        public Fournisseur_DTO Update(Fournisseur_DTO f)
+        public Fournisseur_DTO UpdateFournisseur(Fournisseur_DTO f)
         {
             var f_metier = service.Update(new Fournisseur(f.ID, f.Societe, f.Civilite, f.Nom, f.Prenom, f.Email, f.Adresse, f.Desactive));
 

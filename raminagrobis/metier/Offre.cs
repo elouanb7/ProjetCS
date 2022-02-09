@@ -8,7 +8,7 @@ namespace Raminagrobis
 {
     public class Offre
     {
-        public int ID { get; private set; }
+        public int ID { get; set; }
         public int IDFournisseur { get; set; }
         public int IDPanierGlobalDetail { get; set; }
         public float? PUHT { get; set; }

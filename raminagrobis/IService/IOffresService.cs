@@ -10,6 +10,7 @@ namespace Raminagrobis.IService
     {
         public List<Offre> GetAll();
         public Offre GetByID(int ID);
+        public List<Offre> GetBySemaine(int semaine);
         public Offre Insert(Offre o);
         public Offre Update(Offre o);
     }

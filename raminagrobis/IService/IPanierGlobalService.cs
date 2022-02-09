@@ -10,6 +10,7 @@ namespace Raminagrobis.IService
     {
         public List<PanierGlobal> GetAll();
         public PanierGlobal GetByID(int ID);
+        public PanierGlobal GetBySemaine(int semaine);
         public PanierGlobal Insert(PanierGlobal pg);
     }
 }

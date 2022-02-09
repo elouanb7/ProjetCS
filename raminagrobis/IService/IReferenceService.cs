@@ -11,6 +11,7 @@ namespace Raminagrobis
         public List<Reference> GetAll();
         public List<Reference> GetAllActif();
         public Reference GetByID(int ID);
+        public Reference GetByReference(string reference);
         public Reference Insert(Reference r);
         public Reference Update(Reference r);
     }

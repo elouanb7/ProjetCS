@@ -15,7 +15,7 @@ namespace Raminagrobis.Services
         public List<PanierGlobal> GetAll()
         {
             var pg = depot.GetAll()
-                .Select(o => new PanierGlobal(o.ID, o.IDListAchat_DAL))
+                .Select(o => new PanierGlobal(o.ID, o.Semaine))
                 .ToList();
 
             return pg;
@@ -25,14 +25,21 @@ namespace Raminagrobis.Services
         {
             var pg = depot.GetByID(ID);
 
-            return new PanierGlobal(pg.ID, pg.IDListAchat_DAL);
+            return new PanierGlobal(pg.ID, pg.Semaine);
+        }
+
+        public PanierGlobal GetBySemaine(int semaine)
+        {
+            var pg = depot.GetByName(semaine.ToString());
+
+            return new PanierGlobal(pg.ID, pg.Semaine);
         }
 
         public PanierGlobal Insert(PanierGlobal pg)
         {
-            var panierg = new PanierGlobal_DAL(pg.IDListAchat);
-            depot.Insert(panierg);
-            panierg.ID = pg.ID;
+            var panierg = new PanierGlobal_DAL(pg.Semaine);
+            panierg = depot.Insert(panierg);
+            pg.ID = panierg.ID;
 
             return pg;
         }

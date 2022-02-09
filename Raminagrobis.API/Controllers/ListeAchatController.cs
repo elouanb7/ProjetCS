@@ -21,7 +21,7 @@ namespace Raminagrobis.API.Controllers
             detailsService = dsrv;
         }
 
-        [HttpGet("all")]
+        [HttpGet("allListeAchat")]
         public IEnumerable<ListeAchat_DTO> GetAllListeAchats()
         {
             var ldetails = detailsService.GetAll();
@@ -33,7 +33,7 @@ namespace Raminagrobis.API.Controllers
                     IDAdherent = l.IDAdherent,
                     Semaine = l.Semaine,
                     details = ldetails
-                    .Where(ld => ld.IDListeAchat == l.IDAdherent)
+                    .Where(ld => ld.IDListeAchat == l.ID)
                     .Select(ld => new ListeAchatDetails_DTO()
                     {
                         IDListeAchat = ld.IDListeAchat,
@@ -46,11 +46,11 @@ namespace Raminagrobis.API.Controllers
         }
 
         [HttpGet("{idListeAchat}")]
-        public ListeAchat_DTO GetListeAchatsByID([FromRoute] int id)
+        public ListeAchat_DTO GetListeAchatByID([FromRoute] int idListeAchat)
         {
-            var l = service.GetByID(id);
+            var l = service.GetByID(idListeAchat);
 
-            var ldetails = detailsService.GetByListeAchatID(id);
+            var ldetails = detailsService.GetByListeAchatID(idListeAchat);
 
             return new ListeAchat_DTO()
             {
@@ -58,7 +58,7 @@ namespace Raminagrobis.API.Controllers
                 IDAdherent = l.IDAdherent,
                 Semaine = l.Semaine,
                 details = ldetails
-                    .Where(ld => ld.IDListeAchat == l.IDAdherent)
+                    .Where(ld => ld.IDListeAchat == l.ID)
                     .Select(ld => new ListeAchatDetails_DTO()
                     {
                         IDListeAchat = ld.IDListeAchat,
@@ -68,23 +68,60 @@ namespace Raminagrobis.API.Controllers
                     .ToArray()
             };
         }
-
-        [HttpPost]
-        public ListeAchat_DTO Insert(ListeAchat_DTO l)
+        
+        [HttpGet("listeMaxSemaine")]
+        public int GetMaxSemaine()
         {
-            var l_metier = service.Insert(new ListeAchat(l.IDAdherent, l.Semaine));
-            foreach (var d in l.details)
+            return service.GetMaxWeek();
+        }
+
+        [HttpGet("listeSemaine")]
+        public IEnumerable<ListeAchat_DTO> GetMaxSemaineListeAchat()
+        {
+            var listeDTO = new List<ListeAchat_DTO>();
+
+            int week = service.GetMaxWeek();
+
+            var listes = service.GetAllWhereWeek(week);
+
+            foreach (var l in listes)
             {
-                detailsService.Insert(new ListeAchatDetails(d.IDListeAchat, d.IDReference, d.Quantite));
+                var ldetails = detailsService.GetByListeAchatID(l.ID);
+                listeDTO.Add(new ListeAchat_DTO()
+                {
+                    ID = l.ID,
+                    IDAdherent = l.IDAdherent,
+                    Semaine = l.Semaine,
+                    details = ldetails
+                    .Select(ld => new ListeAchatDetails_DTO()
+                    {
+                        IDListeAchat = ld.IDListeAchat,
+                        IDReference = ld.IDReference,
+                        Quantite = ld.Quantite
+                    })
+                    .ToArray()
+                });
             }
 
+            return listeDTO;
+        }
+
+        [HttpPost]
+        public ListeAchat_DTO InsertListeAchat(ListeAchat_DTO l)
+        {
+            var l_metier = service.Insert(new ListeAchat(l.IDAdherent, l.Semaine));
             l.ID = l_metier.ID;
+            for (int i = 0; i < l.details.Length; i++)
+            {
+                detailsService.Insert(new ListeAchatDetails(l_metier.ID, l.details[i].IDReference, l.details[i].Quantite));
+                l.details[i].IDListeAchat = l_metier.ID;
+            }
 
             return l;
         }
 
         [HttpPut]
-        public ListeAchat_DTO Update(ListeAchat_DTO l)
+        public ListeAchat_DTO UpdateListeAchat(ListeAchat_DTO l)
         {
             var l_metier = service.Update(new ListeAchat(l.IDAdherent, l.Semaine));
             foreach (var d in l.details)

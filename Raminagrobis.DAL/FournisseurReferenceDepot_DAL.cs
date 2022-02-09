@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace Raminagrobis.DAL
 {
-    public class FournisseurReferenceDepot_DAL : LinkDepot_DAL<FournisseurReference_DAL>
+    public class FournisseurReferenceDepot_DAL : Depot_DAL<FournisseurReference_DAL>
     {
+        public override void Delete(FournisseurReference_DAL item)
+        {
+            throw new NotImplementedException();
+        }
+
         public override List<FournisseurReference_DAL> GetAll()
         {
             CreerConnexionEtCommande();
@@ -31,6 +36,11 @@ namespace Raminagrobis.DAL
             DetruireConnexionEtCommande();
 
             return listeFR;
+        }
+
+        public override FournisseurReference_DAL GetByID(int ID)
+        {
+            throw new NotImplementedException();
         }
 
         public override List<FournisseurReference_DAL> GetByID1(int fournisseurID)
@@ -63,7 +73,7 @@ namespace Raminagrobis.DAL
             CreerConnexionEtCommande();
 
             commande.CommandText = "select id_fournisseur, id_reference from fournisseurs_references where id_reference=@id_reference";
-            commande.Parameters.Add(new SqlParameter("@id_fournisseur", referenceID));
+            commande.Parameters.Add(new SqlParameter("@id_reference", referenceID));
             var reader = commande.ExecuteReader();
 
             var listeFR = new List<FournisseurReference_DAL>();
@@ -81,6 +91,11 @@ namespace Raminagrobis.DAL
             DetruireConnexionEtCommande();
 
             return listeFR;
+        }
+
+        public override FournisseurReference_DAL GetByName(string name)
+        {
+            throw new NotImplementedException();
         }
 
         public override FournisseurReference_DAL GetLinkByID(int ID1, int ID2)
@@ -113,13 +128,20 @@ namespace Raminagrobis.DAL
             CreerConnexionEtCommande();
 
             commande.CommandText = "insert into fournisseurs_references(id_fournisseur, id_reference)"
-                                    + " values (@id_fournisseur, @id_reference); select scope_identity()";
+                                    + " values (@id_fournisseur, @id_reference);";
             commande.Parameters.Add(new SqlParameter("@id_fournisseur", f.IDFournisseur_DAL));
             commande.Parameters.Add(new SqlParameter("@id_reference", f.IDReference_DAL));
+
+            commande.ExecuteScalar();
 
             DetruireConnexionEtCommande();
 
             return f;
+        }
+
+        public override FournisseurReference_DAL Update(FournisseurReference_DAL item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

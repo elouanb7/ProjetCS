@@ -9,6 +9,7 @@ namespace Raminagrobis.DTO
     public class PanierGlobal_DTO
     {
         public int ID { get; set; }
-        public int IDListAchat { get; set; }
+        public int Semaine { get; set; }
+        public PanierGlobalDetails_DTO[] Details { get; set; }
     }
 }

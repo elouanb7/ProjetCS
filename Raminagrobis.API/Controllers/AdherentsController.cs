@@ -18,7 +18,7 @@ namespace Raminagrobis.API.Controllers
             service = srv;
         }
 
-        [HttpGet("all")]
+        [HttpGet("allAdherents")]
         public IEnumerable<Adherent_DTO> GetAllAdherents()
         {
             return service.GetAll().Select(a => new Adherent_DTO()
@@ -35,7 +35,7 @@ namespace Raminagrobis.API.Controllers
             });
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{idAdherent}")]
         public Adherent_DTO GetAdherentsByID([FromRoute] int id)
         {
             var a = service.GetByID(id);
@@ -54,7 +54,26 @@ namespace Raminagrobis.API.Controllers
             };
         }
 
-        [HttpGet("actif")]
+        [HttpGet("nameAdherent")]
+        public Adherent_DTO GetAdherentsByName([FromBody] string name)
+        {
+            var a = service.GetByName(name);
+
+            return new Adherent_DTO()
+            {
+                ID = a.ID,
+                Societe = a.Societe,
+                Civilite = a.Civilite,
+                Nom = a.Nom,
+                Prenom = a.Prenom,
+                Email = a.Email,
+                Adresse = a.Adresse,
+                DateAdhesion = a.DateAdhesion,
+                Desactive = a.Desactive
+            };
+        }
+
+        [HttpGet("adherentsActif")]
         public IEnumerable<Adherent_DTO> GetAllAdherentsActif()
         {
             return service.GetAllActif().Select(a => new Adherent_DTO()
@@ -72,7 +91,7 @@ namespace Raminagrobis.API.Controllers
         }
 
         [HttpPost]
-        public Adherent_DTO Insert(Adherent_DTO a)
+        public Adherent_DTO InsertAdherent(Adherent_DTO a)
         {
             var a_metier = service.Insert(new Adherent(a.Societe, a.Civilite, a.Nom, a.Prenom, a.Email, a.Adresse, a.Desactive, a.DateAdhesion));
             
@@ -82,9 +101,9 @@ namespace Raminagrobis.API.Controllers
         }
 
         [HttpPut]
-        public Adherent_DTO Update(Adherent_DTO a)
+        public Adherent_DTO UpdateAdherent(Adherent_DTO a)
         {
-            var a_metier = service.Update(new Adherent(a.ID, a.Societe, a.Civilite, a.Nom, a.Prenom, a.Email, a.Adresse, a.Desactive, a.DateAdhesion));
+            Adherent a_metier = service.Update(new Adherent(a.ID, a.Societe, a.Civilite, a.Nom, a.Prenom, a.Email, a.Adresse, a.Desactive, a.DateAdhesion));
 
             a.ID = a_metier.ID;
             a.Societe = a_metier.Societe;

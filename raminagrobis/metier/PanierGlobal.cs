@@ -8,10 +8,10 @@ namespace Raminagrobis
 {
     public class PanierGlobal
     {
-        public int ID { get; private set; }
-        public int IDListAchat { get; set; }
+        public int ID { get; set; }
+        public int Semaine { get; set; }
 
-        public PanierGlobal(int idListeAchat) => (IDListAchat) = (idListeAchat);
-        public PanierGlobal(int id, int idListeAchat) => (ID, IDListAchat) = (id, idListeAchat);
+        public PanierGlobal(int semaine) => (Semaine) = (semaine);
+        public PanierGlobal(int id, int semaine) => (ID, Semaine) = (id, semaine);
     }
 }

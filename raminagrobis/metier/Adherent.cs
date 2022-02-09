@@ -13,7 +13,7 @@ namespace Raminagrobis
         /// <summary>
         /// ID de l'adherent
         /// </summary>
-        public int ID { get; private set; }
+        public int ID { get; set; }
 
         /// <summary>
         /// Societe de l'adherent

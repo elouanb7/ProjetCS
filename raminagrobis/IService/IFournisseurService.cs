@@ -11,6 +11,7 @@ namespace Raminagrobis.IService
         public List<Fournisseur> GetAll();
         public List<Fournisseur> GetAllActif();
         public Fournisseur GetByID(int ID);
+        public Fournisseur GetBySociete(string societe);
         public Fournisseur Insert(Fournisseur f);
         public Fournisseur Update(Fournisseur f);
         public void Delete(Fournisseur f);

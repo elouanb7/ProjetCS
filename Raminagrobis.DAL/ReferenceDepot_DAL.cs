@@ -18,7 +18,7 @@ namespace Raminagrobis.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select id, reference, libelle, marque, desactive from references";
+            commande.CommandText = "select * from [references]";
             var reader = commande.ExecuteReader();
 
             var listeRef = new List<Reference_DAL>();
@@ -45,7 +45,7 @@ namespace Raminagrobis.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select id, reference, libelle, marque, desactive from references where ID=@ID";
+            commande.CommandText = "select id, [reference], libelle, marque, desactive from [references] where ID=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", ID));
             var reader = commande.ExecuteReader();
 
@@ -68,11 +68,53 @@ namespace Raminagrobis.DAL
             return r;
         }
 
+        public override List<Reference_DAL> GetByID1(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override List<Reference_DAL> GetByID2(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Reference_DAL GetByName(string name)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select id, reference, libelle, marque, desactive from [references] where reference=@reference";
+            commande.Parameters.Add(new SqlParameter("@reference", name));
+            var reader = commande.ExecuteReader();
+
+            Reference_DAL r;
+            if (reader.Read())
+            {
+                r = new Reference_DAL(
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetString(2),
+                    reader.GetString(3),
+                    reader.GetBoolean(4)
+                    );
+            }
+            else
+                throw new Exception($"Pas de reference dans la BDD avec la reference {name}");
+
+            DetruireConnexionEtCommande();
+
+            return r;
+        }
+
+        public override Reference_DAL GetLinkByID(int ID1, int ID2)
+        {
+            throw new NotImplementedException();
+        }
+
         public override Reference_DAL Insert(Reference_DAL r)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "insert into references(reference, libelle, marque)"
+            commande.CommandText = "insert into [references](reference, libelle, marque)"
                                     + " values (@reference, @libelle, @marque); select scope_identity()";
             commande.Parameters.Add(new SqlParameter("@reference", r.ReferenceName));
             commande.Parameters.Add(new SqlParameter("@libelle", r.Libelle));
@@ -91,7 +133,7 @@ namespace Raminagrobis.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update references set reference=@reference, libelle=@libelle, marque=@marque)"
+            commande.CommandText = "update [references] set reference=@reference, libelle=@libelle, marque=@marque)"
                                     + " where ID=@id";
             commande.Parameters.Add(new SqlParameter("@id", r.ID));
             commande.Parameters.Add(new SqlParameter("@reference", r.ReferenceName));

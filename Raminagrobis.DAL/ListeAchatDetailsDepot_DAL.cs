@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace Raminagrobis.DAL
 {
-    public class ListeAchatDetailsDepot_DAL : LinkDepot_DAL<ListeAchatDetails_DAL>
+    public class ListeAchatDetailsDepot_DAL : Depot_DAL<ListeAchatDetails_DAL>
     {
+        public override void Delete(ListeAchatDetails_DAL item)
+        {
+            throw new NotImplementedException();
+        }
 
         public override List<ListeAchatDetails_DAL> GetAll()
         {
@@ -33,6 +37,11 @@ namespace Raminagrobis.DAL
             DetruireConnexionEtCommande();
 
             return listeLAD;
+        }
+
+        public override ListeAchatDetails_DAL GetByID(int ID)
+        {
+            throw new NotImplementedException();
         }
 
         public override List<ListeAchatDetails_DAL> GetByID1(int listeAchatID)
@@ -83,6 +92,11 @@ namespace Raminagrobis.DAL
             return listeLAD;
         }
 
+        public override ListeAchatDetails_DAL GetByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
         public override ListeAchatDetails_DAL GetLinkByID(int ID1, int ID2)
         {
             CreerConnexionEtCommande();
@@ -114,10 +128,12 @@ namespace Raminagrobis.DAL
             CreerConnexionEtCommande();
 
             commande.CommandText = "insert into liste_achats_details(id_liste_achats, id_reference, quantite)"
-                                    + " values (@id_liste_achats, @id_reference, @quantite);";
+                                    + " values (@id_liste_achats, @id_reference, @quantite)";
             commande.Parameters.Add(new SqlParameter("@id_liste_achats", l.IDListeAchat_DAL));
             commande.Parameters.Add(new SqlParameter("@id_reference", l.IDReference_DAL));
             commande.Parameters.Add(new SqlParameter("@quantite", l.Quantite));
+
+            commande.ExecuteScalar();
 
             DetruireConnexionEtCommande();
 

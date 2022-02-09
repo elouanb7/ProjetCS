@@ -45,6 +45,14 @@ namespace Raminagrobis.DAL
         public abstract Type_DAL Insert(Type_DAL item);
 
         public abstract Type_DAL Update(Type_DAL item);
+
+        public abstract Type_DAL GetLinkByID(int ID1, int ID2);
+
+        public abstract List<Type_DAL> GetByID1(int ID);
+
+        public abstract List<Type_DAL> GetByID2(int ID);
+
+        public abstract Type_DAL GetByName(string name);
         #endregion
     }
 }

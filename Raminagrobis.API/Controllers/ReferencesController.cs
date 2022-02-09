@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Raminagrobis.DTO;
+using Raminagrobis.IService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,29 +13,39 @@ namespace Raminagrobis.API.Controllers
     public class ReferencesController : Controller
     {
         private IReferenceService service;
+        private IFournisseurReferenceService linkService;
 
-        public ReferencesController(IReferenceService srv)
+        public ReferencesController(IReferenceService srv, IFournisseurReferenceService lsrv)
         {
             service = srv;
+            linkService = lsrv;
         }
 
-        [HttpGet("all")]
+        [HttpGet("allReferences")]
         public IEnumerable<Reference_DTO> GetAllReferences()
         {
-            return service.GetAll().Select(r => new Reference_DTO()
+            var liste = new List<Reference_DTO>();
+            var references = service.GetAll();
+            foreach (var r in references)
             {
-                ID = r.ID,
-                ReferenceName = r.ReferenceName,
-                Libelle = r.Libelle,
-                Marque = r.Marque,
-                Desactive = r.Desactive
-            });
+                liste.Add(new Reference_DTO()
+                {
+                    ID = r.ID,
+                    ReferenceName = r.ReferenceName,
+                    Libelle = r.Libelle,
+                    Marque = r.Marque,
+                    Desactive = r.Desactive,
+                    FournisseurID = linkService.GetByReferenceID(r.ID).Select(l => l.IDFournisseur).ToArray()
+                });
+            }
+            
+            return liste;
         }
 
-        [HttpGet("{id}")]
-        public Reference_DTO GeReferenceByID([FromRoute] int id)
+        [HttpGet("{idReference}")]
+        public Reference_DTO GeReferenceByID([FromRoute] int idReference)
         {
-            var r = service.GetByID(id);
+            var r = service.GetByID(idReference);
 
             return new Reference_DTO()
             {
@@ -42,37 +53,79 @@ namespace Raminagrobis.API.Controllers
                 ReferenceName = r.ReferenceName,
                 Libelle = r.Libelle,
                 Marque = r.Marque,
-                Desactive = r.Desactive
+                Desactive = r.Desactive,
+                FournisseurID = linkService.GetByReferenceID(r.ID).Select(l => l.IDFournisseur).ToArray()
             };
         }
 
-        [HttpGet("actif")]
-        public IEnumerable<Reference_DTO> GetAllReferencesActif()
+        [HttpGet("reference")]
+        public Reference_DTO GeReferenceByReference([FromBody] string reference)
         {
-            return service.GetAllActif().Select(r => new Reference_DTO()
+            var r = service.GetByReference(reference);
+
+            return new Reference_DTO()
             {
                 ID = r.ID,
                 ReferenceName = r.ReferenceName,
                 Libelle = r.Libelle,
                 Marque = r.Marque,
-                Desactive = r.Desactive
-            });
+                Desactive = r.Desactive,
+                FournisseurID = linkService.GetByReferenceID(r.ID).Select(l => l.IDFournisseur).ToArray()
+            };
+        }
+
+        [HttpGet("referencesActif")]
+        public IEnumerable<Reference_DTO> GetAllReferencesActif()
+        {
+            var liste = new List<Reference_DTO>();
+            var references = service.GetAllActif();
+            foreach (var r in references)
+            {
+                liste.Add(new Reference_DTO()
+                {
+                    ID = r.ID,
+                    ReferenceName = r.ReferenceName,
+                    Libelle = r.Libelle,
+                    Marque = r.Marque,
+                    Desactive = r.Desactive,
+                    FournisseurID = linkService.GetByReferenceID(r.ID).Select(l => l.IDFournisseur).ToArray()
+                });
+            }
+
+            return liste;
         }
 
         [HttpPost]
-        public Reference_DTO Insert(Reference_DTO r)
+        public Reference_DTO InsertReference(Reference_DTO r)
         {
-            var r_metier = service.Insert(new Reference(r.ReferenceName, r.Libelle, r.Marque, r.Desactive));
+            Reference r_metier = service.Insert(new Reference(r.ReferenceName, r.Libelle, r.Marque, r.Desactive));
 
             r.ID = r_metier.ID;
+
+            foreach (var id in r.FournisseurID)
+            {
+                linkService.Insert(new FournisseurReference(id, r.ID));
+            }
 
             return r;
         }
 
         [HttpPut]
-        public Reference_DTO Update(Reference_DTO r)
+        public Reference_DTO UpdateReference(Reference_DTO r)
         {
             var r_metier = service.Update(new Reference(r.ID, r.ReferenceName, r.Libelle, r.Marque, r.Desactive));
+
+            foreach (var item in r.FournisseurID)
+            {
+                try 
+                {
+                    linkService.GetLinkByID(item, r_metier.ID);
+                }
+                catch (Exception)
+                {
+                    linkService.Insert(new FournisseurReference(item, r_metier.ID));
+                }
+            }
 
             r.ID = r_metier.ID;
             r.ReferenceName = r_metier.ReferenceName;

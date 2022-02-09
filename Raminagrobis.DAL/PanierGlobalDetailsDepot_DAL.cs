@@ -66,7 +66,7 @@ namespace Raminagrobis.DAL
             return p;
         }
 
-        public PanierGlobalDetails_DAL GetByPanierGlobalID(int ID)
+        public override List<PanierGlobalDetails_DAL> GetByID1(int ID)
         {
             CreerConnexionEtCommande();
 
@@ -74,23 +74,36 @@ namespace Raminagrobis.DAL
             commande.Parameters.Add(new SqlParameter("@id_panier_global", ID));
             var reader = commande.ExecuteReader();
 
-            PanierGlobalDetails_DAL p;
-            if (reader.Read())
+            var listeLPD = new List<PanierGlobalDetails_DAL>();
+            while (reader.Read())
             {
-                p = new PanierGlobalDetails_DAL(
+                var p = new PanierGlobalDetails_DAL(
                     reader.GetInt32(0),
                     reader.GetInt32(1),
                     reader.GetInt32(2),
                     reader.GetInt32(3)
                     );
-            }
-            else
-                throw new Exception($"Pas de details de panier global dans la BDD avec l'id_panier_global {ID}");
 
+                listeLPD.Add(p);
+            }
             DetruireConnexionEtCommande();
 
-            return p;
+            return listeLPD;
+        }
 
+        public override List<PanierGlobalDetails_DAL> GetByID2(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override PanierGlobalDetails_DAL GetByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override PanierGlobalDetails_DAL GetLinkByID(int ID1, int ID2)
+        {
+            throw new NotImplementedException();
         }
 
         public override PanierGlobalDetails_DAL Insert(PanierGlobalDetails_DAL p)

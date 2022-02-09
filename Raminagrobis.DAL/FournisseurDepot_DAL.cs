@@ -85,6 +85,51 @@ namespace Raminagrobis.DAL
             return f;
         }
 
+        public override List<Fournisseur_DAL> GetByID1(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override List<Fournisseur_DAL> GetByID2(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Fournisseur_DAL GetByName(string societe)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select id, societe, civilite, nom, prenom, email, adresse, desactive from fournisseurs where societe=@societe";
+            commande.Parameters.Add(new SqlParameter("@societe", societe));
+            var reader = commande.ExecuteReader();
+
+            Fournisseur_DAL f;
+            if (reader.Read())
+            {
+                f = new Fournisseur_DAL(
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetBoolean(2),
+                    reader.GetString(3),
+                    reader.GetString(4),
+                    reader.GetString(5),
+                    reader.GetString(6),
+                    reader.GetBoolean(7)
+                    );
+            }
+            else
+                throw new Exception($"Pas de fournisseur dans la BDD avec la societe {societe}");
+
+            DetruireConnexionEtCommande();
+
+            return f;
+        }
+
+        public override Fournisseur_DAL GetLinkByID(int ID1, int ID2)
+        {
+            throw new NotImplementedException();
+        }
+
         public override Fournisseur_DAL Insert(Fournisseur_DAL f)
         {
             CreerConnexionEtCommande();
@@ -111,7 +156,7 @@ namespace Raminagrobis.DAL
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update fournisseurs set societe=@societe, civilite=@civilite, nom=@nom, prenom=@prenom, email=@email, adresse=@adresse)"
+            commande.CommandText = "update fournisseurs set societe=@societe, civilite=@civilite, nom=@nom, prenom=@prenom, email=@email, adresse=@adresse, desactive=@desactive"
                                     + " where ID=@id";
             commande.Parameters.Add(new SqlParameter("@id", f.ID));
             commande.Parameters.Add(new SqlParameter("@societe", f.Societe));
@@ -120,6 +165,7 @@ namespace Raminagrobis.DAL
             commande.Parameters.Add(new SqlParameter("@prenom", f.Prenom));
             commande.Parameters.Add(new SqlParameter("@email", f.Email));
             commande.Parameters.Add(new SqlParameter("@adresse", f.Adresse));
+            commande.Parameters.Add(new SqlParameter("@desactive", f.Desactive));
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
             if (nombreDeLignesAffectees != 1)

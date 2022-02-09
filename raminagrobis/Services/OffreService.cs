@@ -28,11 +28,20 @@ namespace Raminagrobis.Services
             return new Offre(o.ID, o.IDFournisseur_DAL, o.IDPanierGlobalDetail_DAL, o.PUHT);
         }
 
+        public List<Offre> GetBySemaine(int semaine)
+        {
+            var offres = depot.GetByID1(semaine)
+                .Select(o => new Offre(o.ID, o.IDFournisseur_DAL, o.IDPanierGlobalDetail_DAL, o.PUHT))
+                .ToList();
+
+            return offres;
+        }
+
         public Offre Insert(Offre o)
         {
             var offre = new Offre_DAL(o.IDFournisseur, o.IDPanierGlobalDetail, o.PUHT);
-            depot.Insert(offre);
-            offre.ID = o.ID;
+            offre = depot.Insert(offre);
+            o.ID = offre.ID;
 
             return o;
         }

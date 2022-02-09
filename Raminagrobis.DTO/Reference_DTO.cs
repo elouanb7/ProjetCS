@@ -13,5 +13,6 @@ namespace Raminagrobis.DTO
         public string Libelle { get; set; }
         public string Marque { get; set; }
         public bool Desactive { get; set; }
+        public int[] FournisseurID { get; set; }
     }
 }

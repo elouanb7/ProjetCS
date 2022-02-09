@@ -37,12 +37,19 @@ namespace Raminagrobis
             return new Reference(r.ID, r.ReferenceName, r.Libelle, r.Marque, r.Desactive);
         }
 
+        public Reference GetByReference(string reference)
+        {
+            var r = depot.GetByName(reference);
+
+            return new Reference(r.ID, r.ReferenceName, r.Libelle, r.Marque, r.Desactive);
+        }
+
         public Reference Insert(Reference r)
         {
             var reference = new Reference_DAL(r.ReferenceName, r.Libelle, r.Marque, r.Desactive);
-            depot.Insert(reference);
+            reference = depot.Insert(reference);
 
-            reference.ID = r.ID;
+            r.ID = reference.ID;
 
             return r;
         }

@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Raminagrobis.IService;
+using Raminagrobis.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +35,12 @@ namespace Raminagrobis.API
             services.AddSingleton(typeof(IAdherentService), new AdherentService());
             services.AddSingleton(typeof(IFournisseurService), new FournisseurService());
             services.AddSingleton(typeof(IReferenceService), new ReferenceService());
+            services.AddSingleton(typeof(IFournisseurReferenceService), new FournisseurReferenceService());
+            services.AddSingleton(typeof(IListeAchatService), new ListeAchatService());
+            services.AddSingleton(typeof(IListeAchatDetailsService), new ListeAchatDetailsService());
+            services.AddSingleton(typeof(IPanierGlobalService), new PanierGlobalService());
+            services.AddSingleton(typeof(IPanierGlobalDetailsService), new PanierGlobalDetailsService());
+            services.AddSingleton(typeof(IOffresService), new OffreService());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
