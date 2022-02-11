@@ -9,21 +9,9 @@ namespace Raminagrobis.DAL
 {
     public class FournisseurReferenceDepot_DAL : Depot_DAL<FournisseurReference_DAL>
     {
-        public override void Delete(FournisseurReference_DAL f)
+        public override void Delete(FournisseurReference_DAL item)
         {
-            CreerConnexionEtCommande();
-
-            commande.CommandText = "delete from adherents where id_fournisseur=@IDFournisseur_DAL and id_reference=@IDReference_DAL";
-            commande.Parameters.Add(new SqlParameter("@IDFournisseur_DAL", f.IDFournisseur_DAL));
-            commande.Parameters.Add(new SqlParameter("@IDReference_DAL", f.IDReference_DAL));
-            var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
-
-            if (nombreDeLignesAffectees != 1)
-            {
-                throw new Exception($"Impossible de supprimer le FournisseurReference d'ID_fournisseur {f.IDFournisseur_DAL} et d'ID_reference {f.IDReference_DAL}");
-            }
-
-            DetruireConnexionEtCommande();
+            throw new NotImplementedException();
         }
 
         public override List<FournisseurReference_DAL> GetAll()
@@ -52,13 +40,72 @@ namespace Raminagrobis.DAL
 
         public override FournisseurReference_DAL GetByID(int ID)
         {
+            throw new NotImplementedException();
+        }
+
+        public override List<FournisseurReference_DAL> GetByID1(int fournisseurID)
+        {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select id_fournisseur, id_reference from fournisseurs_references where ID=@ID";
-            commande.Parameters.Add(new SqlParameter("@ID", ID));
+            commande.CommandText = "select id_fournisseur, id_reference from fournisseurs_references where id_fournisseur=@id_fournisseur";
+            commande.Parameters.Add(new SqlParameter("@id_fournisseur", fournisseurID));
             var reader = commande.ExecuteReader();
 
-            var listeDePoints = new List<Adherent_DAL>();
+            var listeFR = new List<FournisseurReference_DAL>();
+
+            while (reader.Read())
+            {
+                var f = new FournisseurReference_DAL(
+                    reader.GetInt32(0),
+                    reader.GetInt32(1)
+                    );
+
+                listeFR.Add(f);
+            }
+
+            DetruireConnexionEtCommande();
+
+            return listeFR;
+        }
+
+        public override List<FournisseurReference_DAL> GetByID2(int referenceID)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select id_fournisseur, id_reference from fournisseurs_references where id_reference=@id_reference";
+            commande.Parameters.Add(new SqlParameter("@id_reference", referenceID));
+            var reader = commande.ExecuteReader();
+
+            var listeFR = new List<FournisseurReference_DAL>();
+
+            while (reader.Read())
+            {
+                var f = new FournisseurReference_DAL(
+                    reader.GetInt32(0),
+                    reader.GetInt32(1)
+                    );
+
+                listeFR.Add(f);
+            }
+
+            DetruireConnexionEtCommande();
+
+            return listeFR;
+        }
+
+        public override FournisseurReference_DAL GetByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override FournisseurReference_DAL GetLinkByID(int ID1, int ID2)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select id_fournisseur, id_reference from fournisseurs_references where id_fournisseur=@id_fournisseur and id_reference=@id_reference";
+            commande.Parameters.Add(new SqlParameter("@id_fournisseur", ID1));
+            commande.Parameters.Add(new SqlParameter("@id_reference", ID2));
+            var reader = commande.ExecuteReader();
 
             FournisseurReference_DAL f;
             if (reader.Read())
@@ -69,7 +116,7 @@ namespace Raminagrobis.DAL
                     );
             }
             else
-                throw new Exception($"Pas de FournisseurReference dans la BDD avec l'ID {ID}");
+                throw new Exception($"Pas de FournisseurReference dans la BDD avec l'ID_fournisseur {ID1} et  l'ID_reference {ID2}");
 
             DetruireConnexionEtCommande();
 
@@ -81,11 +128,11 @@ namespace Raminagrobis.DAL
             CreerConnexionEtCommande();
 
             commande.CommandText = "insert into fournisseurs_references(id_fournisseur, id_reference)"
-                                    + " values (@id_fournisseur, @id_reference); select scope_identity()";
+                                    + " values (@id_fournisseur, @id_reference);";
             commande.Parameters.Add(new SqlParameter("@id_fournisseur", f.IDFournisseur_DAL));
             commande.Parameters.Add(new SqlParameter("@id_reference", f.IDReference_DAL));
 
-            var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
+            commande.ExecuteScalar();
 
             DetruireConnexionEtCommande();
 

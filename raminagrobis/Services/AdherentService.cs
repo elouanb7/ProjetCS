@@ -43,11 +43,19 @@ namespace Raminagrobis
             return new Adherent(a.ID, a.Societe, a.Civilite, a.Nom, a.Prenom, a.Email, a.Adresse, a.Desactive, a.DateAdhesion);
         }
 
+        public Adherent GetByName(string name)
+        {
+            var a = depot.GetByName(name);
+
+            return new Adherent(a.ID, a.Societe, a.Civilite, a.Nom, a.Prenom, a.Email, a.Adresse, a.Desactive, a.DateAdhesion);
+
+        }
+
         public Adherent Insert(Adherent a)
         {
             var adherent = new Adherent_DAL(a.Societe, a.Civilite, a.Nom, a.Prenom, a.Email, a.Adresse, a.DateAdhesion, a.Desactive);
-            depot.Insert(adherent);
-            adherent.ID = a.ID;
+            adherent = depot.Insert(adherent);
+            a.ID = adherent.ID;
 
             return a;
         }

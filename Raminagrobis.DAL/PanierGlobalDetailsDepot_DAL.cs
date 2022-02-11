@@ -66,6 +66,46 @@ namespace Raminagrobis.DAL
             return p;
         }
 
+        public override List<PanierGlobalDetails_DAL> GetByID1(int ID)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select id, id_panier_global, id_reference, quantite from panier_global_details where id_panier_global=@id_panier_global";
+            commande.Parameters.Add(new SqlParameter("@id_panier_global", ID));
+            var reader = commande.ExecuteReader();
+
+            var listeLPD = new List<PanierGlobalDetails_DAL>();
+            while (reader.Read())
+            {
+                var p = new PanierGlobalDetails_DAL(
+                    reader.GetInt32(0),
+                    reader.GetInt32(1),
+                    reader.GetInt32(2),
+                    reader.GetInt32(3)
+                    );
+
+                listeLPD.Add(p);
+            }
+            DetruireConnexionEtCommande();
+
+            return listeLPD;
+        }
+
+        public override List<PanierGlobalDetails_DAL> GetByID2(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override PanierGlobalDetails_DAL GetByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override PanierGlobalDetails_DAL GetLinkByID(int ID1, int ID2)
+        {
+            throw new NotImplementedException();
+        }
+
         public override PanierGlobalDetails_DAL Insert(PanierGlobalDetails_DAL p)
         {
             CreerConnexionEtCommande();

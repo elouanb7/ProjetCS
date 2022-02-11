@@ -13,7 +13,7 @@ namespace Raminagrobis
         /// <summary>
         /// ID du fournisseur
         /// </summary>
-        public int ID { get; private set; }
+        public int ID { get; set; }
 
         /// <summary>
         /// Societe du fournisseur

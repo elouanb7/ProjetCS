@@ -8,7 +8,7 @@ namespace Raminagrobis
 {
     public class PanierGlobalDetails
     {
-        public int ID { get; private set; }
+        public int ID { get; set; }
         public int IDPanierGlobal { get; set; }
         public int IDReference { get; set; }
         public int Quantite { get; set; }

@@ -15,8 +15,8 @@ namespace Raminagrobis.DAL
         public bool Desactive { get; set; }
 
         public Reference_DAL(string referenceName, string libelle, string marque, bool desactive)
-            => (ReferenceName, Libelle, Marque, Desactive) = (ReferenceName, libelle, marque, desactive);
+            => (ReferenceName, Libelle, Marque, Desactive) = (referenceName, libelle, marque, desactive);
         public Reference_DAL(int id, string referenceName, string libelle, string marque, bool desactive)
-            => (ID, ReferenceName, Libelle, Marque, Desactive) = (id, ReferenceName, libelle, marque, desactive);
+            => (ID, ReferenceName, Libelle, Marque, Desactive) = (id, referenceName, libelle, marque, desactive);
     }
 }
