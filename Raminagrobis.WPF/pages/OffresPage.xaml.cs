@@ -87,7 +87,6 @@ namespace Raminagrobis.WPF.pages
                             string[] element = line.Split(';');
                             var reference = await client.ReferenceAsync(element[0]);
                             var fournisseur = await client.SocieteFournisseurAsync(fileInfo[0]);
-                            MessageBox.Show(panier.Details.Where(d => d.IdReference == reference.Id).Select(d => d.Id).First().ToString());
                             await client.OffresPOSTAsync(new Offre_DTO()
                             {
                                 IdFournisseur = fournisseur.Id,

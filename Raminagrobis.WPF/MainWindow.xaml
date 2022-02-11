@@ -12,7 +12,7 @@
             <Button x:Name="Btn_fournisseur" Background="White" Content="Fournisseur" Click="Btn_fournisseur_Click" FontSize="14" Height="30" Width="100"/>
             <Button x:Name="Btn_reference" Background="White" Content="Référence" Click="Btn_reference_Click" FontSize="14" Height="30" Width="100"/>
             <Button x:Name="Btn_liste_achats" Background="White" Content="Liste achats" Click="Btn_liste_achats_Click" FontSize="14" Height="30" Width="100"/>
-            <Button x:Name="Btn_panier_global" Background="White" Content="Panier globals" Click="Btn_panier_global_Click" FontSize="14" Height="30" Width="100"/>
+            <Button x:Name="Btn_panier_global" Background="White" Content="Panier global" Click="Btn_panier_global_Click" FontSize="14" Height="30" Width="100"/>
             <Button x:Name="Btn_Offre" Background="White" Content="Offres" Click="Btn_offre_Click" FontSize="14" Height="30" Width="100"/>
         </Menu>
         <Frame x:Name="Main"  Margin="0,32,0,0"/>
